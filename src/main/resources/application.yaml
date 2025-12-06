@@ -1,0 +1,29 @@
+#
+server.port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true #작업되는 sql 쿼리 로그로 보여주는 옵션
+    defer-datasource-initialization: true #seed파일 있다면 자동 적용
+  #영속성이 없는 memory RDBMS: test 실습용.
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+
+logging:
+  level:
+    org.springframework: debug
+
+#메타 데이터를 서버 외부로 반출. 해당 데이터를 받아 prometeous등과 같은 모니터링 툴에 연계 + 시각화 처리
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
