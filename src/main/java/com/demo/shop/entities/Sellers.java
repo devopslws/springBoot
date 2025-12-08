@@ -24,11 +24,11 @@ public class Sellers extends CommonColumn{
     private String storeName;
 
     // FK 값만 들고 있는 실 필드
-    @Column(name = "master_id")
-    private Long masterId;
+    @Column(name = "user_id")
+    private int userId;
 
     // 지연 로딩 관계 (insert/update X)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "master_id", insertable = false, updatable = false)
-    private User master;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 }

@@ -2,8 +2,9 @@ package com.demo.shop._02_seller;
 
 import com.demo.shop._00_common.ResponseBuilder;
 import com.demo.shop._00_common.models.CreateResDTO;
-import com.demo.shop._01_users.UserService;
+import com.demo.shop._00_common.models.ReadResDTO;
 import com.demo.shop._01_users.models.SignupReqDTO;
+import com.demo.shop._02_seller.models.PromoteUserToSellerReqDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class SellerController {
         this.sellerService = sellerService;
     }
     @PostMapping("/seller")
-    public ResponseEntity<CreateResDTO> promoteUserToSeller(@Valid @RequestBody SignupReqDTO signupReq) {
-        int sellerId = sellerService.promoteUserToSeller(signupReq);
-        return ResponseBuilder.postResponse(String.valueOf(sellerId), new CreateResDTO());
+    public ResponseEntity<CreateResDTO> promoteUserToSeller(@Valid @RequestBody PromoteUserToSellerReqDTO promoteUserToSellerReqDTO) {
+        Integer sellerId = sellerService.promoteUserToSeller(promoteUserToSellerReqDTO);
+        return ResponseBuilder.postResponse(String.valueOf(sellerId), new ReadResDTO(sellerId));
     }
 
     @PostMapping("/goods")
@@ -35,15 +36,5 @@ public class SellerController {
         return ResponseBuilder.postResponse(String.valueOf(id), new CreateResDTO());
     }
 
-    @PutMapping("/goods/{id}")
-    public ResponseEntity<CreateResDTO> modifyGoodsInfoDetail(@Valid @RequestBody SignupReqDTO signupReq) {
-        int id = sellerService.modifyGoodsInfoDetail(signupReq);
-        return ResponseBuilder.postResponse(String.valueOf(id), new CreateResDTO());
-    }
 
-    @DeleteMapping("/goods/{id}")
-    public ResponseEntity<CreateResDTO> deleteGoods(@PathVariable int id) {
-        sellerService.deleteGoods(signupReq);
-        return ResponseBuilder.postResponse(String.valueOf(id), new CreateResDTO());
-    }
 }
