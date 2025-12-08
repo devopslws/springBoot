@@ -6,5 +6,5 @@ import lombok.Data;
 public class RegisterGoodsReqDTO {
     private String name;
     private int quantity;
-    private int storeId;
+    private int sellerId;
 }
