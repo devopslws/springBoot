@@ -3,8 +3,9 @@ package com.demo.shop._02_seller;
 import com.demo.shop._00_common.ResponseBuilder;
 import com.demo.shop._00_common.models.CreateResDTO;
 import com.demo.shop._00_common.models.ReadResDTO;
-import com.demo.shop._01_users.models.SignupReqDTO;
 import com.demo.shop._02_seller.models.PromoteUserToSellerReqDTO;
+import com.demo.shop._02_seller.models.RegisterGoodsReqDTO;
+import com.demo.shop.entities.Goods;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +26,14 @@ public class SellerController {
     }
 
     @PostMapping("/goods")
-    public ResponseEntity<CreateResDTO> registerGoods(@Valid @RequestBody SignupReqDTO signupReq) {
-        int id = sellerService.registerGoods(signupReq);
+    public ResponseEntity<CreateResDTO> registerGoods(@Valid @RequestBody RegisterGoodsReqDTO registerGoods) {
+        int id = sellerService.registerGoods(registerGoods);
         return ResponseBuilder.postResponse(String.valueOf(id), new CreateResDTO());
     }
 
     @GetMapping("/goods/{id}")
-    public ResponseEntity<CreateResDTO> getGoodsInfoDetail(@PathVariable int id) {
-        sellerService.getGoodsInfoDetail(id);
-        return ResponseBuilder.postResponse(String.valueOf(id), new CreateResDTO());
+    public Goods getGoodsInfoDetail(@PathVariable int id) {
+        return sellerService.getGoodsInfoDetail(id);
     }
 
 
